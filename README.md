@@ -16,11 +16,13 @@ Custom integration for the **Kospel PPE4.M** electric instantaneous water heater
 
 ## Installation
 
-### HACS (recommended)
-1. Add this repository as a custom repository in HACS
-2. Install "Kospel PPE4.M Water Heater"
+### Home Assistant Marketplace / HACS (recommended)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=souhaibtouati&repository=ha-kospel-ppe4&category=integration)
+
+1. Click the badge above, or add `https://github.com/souhaibtouati/ha-kospel-ppe4` as a custom repository in Marketplace / HACS (category: **Integration**)
+2. Install **Kospel PPE4.M Water Heater**
 3. Restart Home Assistant
-4. Go to Settings → Integrations → Add → search "Kospel"
+4. Go to **Settings → Devices & services → Add integration** → search **Kospel**
 
 ### Manual
 1. Copy `custom_components/kospel_ppe4/` to your HA `config/custom_components/` directory
@@ -67,3 +69,7 @@ Please feel free to contribute by updating the register mapping in case you find
 - The device has **no authentication** — anyone on the local network can control it. Isolate on a dedicated VLAN.
 - The firmware expects all 5 config registers written together (`1390`–`1394`). This integration handles that automatically.
 - Error codes E01 and E11 indicate dangerous conditions (triac/control failure) — the device LCD displays "Power Off" and the user should **immediately disconnect power**.
+
+## Disclaimer
+
+This is an **unofficial, community-developed integration** and is not affiliated with, endorsed by, or supported by Kospel. It is provided "as is" without warranty of any kind under the [MIT License](LICENSE). Use at your own risk; this integration does not replace physical safety cutoffs or manufacturer safety instructions.

@@ -1,8 +1,7 @@
 """Constants for the Kospel PPE4.M integration.
 
-Register mappings confirmed via firmware analysis (libPPE4Exp.so) and
-hardware validation against a live PPE4.M device (Feb 2026).
-Error/warning codes confirmed from official Kospel manual EN-116B_f.1535.
+Local HTTP API register mappings validated against a live PPE4.M device.
+Error/warning codes documented per Kospel manual EN-116B_f.1535.
 """
 
 DOMAIN = "kospel_ppe4"

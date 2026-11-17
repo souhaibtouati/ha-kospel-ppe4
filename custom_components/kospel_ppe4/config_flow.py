@@ -59,12 +59,11 @@ class KospelPPE4ConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry) -> KospelPPE4OptionsFlow:
-        return KospelPPE4OptionsFlow(config_entry)
+        return KospelPPE4OptionsFlow()
 
 
 class KospelPPE4OptionsFlow(OptionsFlow):
-    def __init__(self, config_entry) -> None:
-        self.config_entry = config_entry
+    """Handle options flow for Kospel PPE4.M."""
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None

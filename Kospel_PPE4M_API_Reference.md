@@ -1,7 +1,7 @@
 # Kospel PPE4.M — Complete API & Register Reference
 
 **Version**: 2.0 — February 8, 2026
-**Source**: Reverse-engineered on local network and hardware-validated against live device.
+**Source**: Local HTTP/JSON API documented for interoperability and hardware-validated against a live device.
 
 ---
 
@@ -94,44 +94,44 @@ Two 32-bit error bitfields. **All zeros = no errors (normal operation).**
 
 These are **critical errors that lock out the heat output**. Mapped from the official manual error codes E01–E11:
 
-| Bit | IDS Key | Error Code | LCD Text | Description |
-|---|---|---|---|---|
-| 0 | IDS_62 | **E02** | TIN | Inlet temperature sensor failure / missing / short to ground |
-| 1 | IDS_63 | **E03** | TOUT | Outlet temperature sensor failure / missing / short to ground |
-| 2 | IDS_64 | **E04** | OUT/IN | Temperature sensor connections reversed / altered response |
-| 3 | IDS_65 | **E05** | AIR2 | Air clog in water circuit / vane flow meter dirty or failed |
-| 4 | IDS_66 | **E06** | AIR | Air clog / pressure switch triggered / supply phase voltage lost |
-| 5 | IDS_67 | **E07** | T MAX | Outlet water overtemperature / flow rate fluctuations |
-| 6 | IDS_68 | **E08** | FLOW | Air clog in water circuit / water supply pressure too high |
-| 7 | IDS_69 | **E09** | 3F | No mains grid sync signal / supply phase voltage lost |
-| 8 | IDS_70 | **E10** | CONFIG | Illegal hardware configuration (DIP switches) |
-| 9 | IDS_71 | **E01** | Power Off | ⚠️ **Triac failure — ISOLATE POWER IMMEDIATELY** |
-| 10 | IDS_72 | **E11** | Power Off | ⚠️ **Control system failure — ISOLATE POWER IMMEDIATELY** |
+| Bit | Error Code | LCD Text | Description |
+|---|---|---|---|
+| 0 | **E02** | TIN | Inlet temperature sensor failure / missing / short to ground |
+| 1 | **E03** | TOUT | Outlet temperature sensor failure / missing / short to ground |
+| 2 | **E04** | OUT/IN | Temperature sensor connections reversed / altered response |
+| 3 | **E05** | AIR2 | Air clog in water circuit / vane flow meter dirty or failed |
+| 4 | **E06** | AIR | Air clog / pressure switch triggered / supply phase voltage lost |
+| 5 | **E07** | T MAX | Outlet water overtemperature / flow rate fluctuations |
+| 6 | **E08** | FLOW | Air clog in water circuit / water supply pressure too high |
+| 7 | **E09** | 3F | No mains grid sync signal / supply phase voltage lost |
+| 8 | **E10** | CONFIG | Illegal hardware configuration (DIP switches) |
+| 9 | **E01** | Power Off | ⚠️ **Triac failure — ISOLATE POWER IMMEDIATELY** |
+| 10 | **E11** | Power Off | ⚠️ **Control system failure — ISOLATE POWER IMMEDIATELY** |
 
 **Error Word 2** = `(reg_1133 << 16) | reg_1132`
 
 These are **warnings that affect operating comfort** but do not necessarily lock out heat output. Mapped from official manual warning codes W01–W17:
 
-| Bit | IDS Key | Warning Code | Description |
-|---|---|---|---|
-| 0 | IDS_73 | **W01** | E06 AIR error occurred while heating |
-| 1 | IDS_74 | **W02** | E05 AIR2 error occurred while heating |
-| 2 | IDS_75 | **W03** | E08 FLOW error occurred while heating |
-| 3 | IDS_76 | **W04** | E07 T MAX error occurred while heating |
-| 4 | IDS_77 | **W05** | Pressure switch tripped / incorrect DIP switches / heater or triac failure / phase lost |
-| 5 | IDS_78 | **W06** | Low battery |
-| 6 | IDS_79 | **W07** | Battery drained |
-| 7 | IDS_80 | **W08** | Altered response of one or both temperature sensors |
-| 8 | IDS_81 | **W09** | Control PCB failure |
-| 9 | IDS_82 | **W10** | Control PCB failure |
-| 10 | IDS_83 | **W11** | WiFi module failure |
-| 11 | IDS_84 | **W12** | Control PCB failure |
-| 12 | IDS_85 | **W13** | Environment conditions out of limits / inlet temperature sensor failure |
-| 13 | IDS_86 | **W14** | Outlet temperature sensor failed (check with W13/W15 for combined diagnosis) |
-| 14 | IDS_87 | **W15** | Environment conditions out of limits / control PCB failure |
-| 15 | IDS_88 | **W16** | Environment conditions out of limits / inlet temperature sensor failure |
-| 16 | IDS_89 | **W17** | Environment conditions out of limits / control PCB failure |
-| 17 | IDS_90 | — | Reserved |
+| Bit | Warning Code | Description |
+|---|---|---|
+| 0 | **W01** | E06 AIR error occurred while heating |
+| 1 | **W02** | E05 AIR2 error occurred while heating |
+| 2 | **W03** | E08 FLOW error occurred while heating |
+| 3 | **W04** | E07 T MAX error occurred while heating |
+| 4 | **W05** | Pressure switch tripped / incorrect DIP switches / heater or triac failure / phase lost |
+| 5 | **W06** | Low battery |
+| 6 | **W07** | Battery drained |
+| 7 | **W08** | Altered response of one or both temperature sensors |
+| 8 | **W09** | Control PCB failure |
+| 9 | **W10** | Control PCB failure |
+| 10 | **W11** | WiFi module failure |
+| 11 | **W12** | Control PCB failure |
+| 12 | **W13** | Environment conditions out of limits / inlet temperature sensor failure |
+| 13 | **W14** | Outlet temperature sensor failed (check with W13/W15 for combined diagnosis) |
+| 14 | **W15** | Environment conditions out of limits / control PCB failure |
+| 15 | **W16** | Environment conditions out of limits / inlet temperature sensor failure |
+| 16 | **W17** | Environment conditions out of limits / control PCB failure |
+| 17 | — | Reserved |
 
 #### Live Sensor Registers (1134–1145)
 
@@ -667,7 +667,7 @@ The PPE4.M LCD panel displays information that maps directly to API registers:
 | ⚠ (warning) | Operating comfort event | Error Word 2 ≠ 0 |
 | 🚫 (error) | Heat output locked out | Error Word 1 ≠ 0 |
 | 💧 (water drop) | Flow rate display | Register 1137 > 0 |
-| 📶 (WiFi) | WiFi connected | Connection alive (struct offset 0x365) |
+| 📶 (WiFi) | WiFi connected | Connection alive |
 
 ---
 
