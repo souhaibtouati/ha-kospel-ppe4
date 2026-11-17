@@ -1,5 +1,7 @@
 # Kospel PPE4.M — Home Assistant Integration
 
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/touati)
+
 Custom integration for the **Kospel PPE4.M** electric instantaneous water heater with WiFi module.
 
 
@@ -73,3 +75,7 @@ Please feel free to contribute by updating the register mapping in case you find
 ## Disclaimer
 
 This is an **unofficial, community-developed integration** and is not affiliated with, endorsed by, or supported by Kospel. It is provided "as is" without warranty of any kind under the [MIT License](LICENSE). Use at your own risk; this integration does not replace physical safety cutoffs or manufacturer safety instructions.
+
+## Support
+
+If you find this integration useful, you can [buy me a coffee](https://www.buymeacoffee.com/touati).
